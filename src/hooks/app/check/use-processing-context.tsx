@@ -7,7 +7,7 @@ import {
   ValueFromOption,
 } from '@/types/app/check'
 import { useRouter } from 'next/navigation'
-import { createContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 interface CheckProcessContext {
   currentStep: number
@@ -40,7 +40,6 @@ export const CheckProcessProvider = ({
   }
 
   const selectResponse = (response: Option) => {
-    // setCheckedResponse([...checkedResponse, response.value])
     const newCheckedResponse = [...checkedResponse]
     newCheckedResponse[currentStep] = response.value
     setCheckedResponse(newCheckedResponse)
@@ -95,4 +94,12 @@ export const CheckProcessProvider = ({
       {children}
     </CheckProcessContext.Provider>
   )
+}
+
+export const useCheckProcessContext = () => {
+  const processContext = useContext(CheckProcessContext)
+  if (processContext === null) {
+    throw new Error('CheckProcessContext is null')
+  }
+  return processContext
 }
