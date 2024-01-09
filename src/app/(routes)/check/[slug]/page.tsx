@@ -17,8 +17,9 @@ const Page: FunctionComponent<PageProps> = async ({ params: { slug } }) => {
   const checkProcessData = await getCheckProcessData(slug)
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {checkProcessData.introduce}
+    <main className="flex min-h-screen flex-col items-center gap-5 p-24">
+      <h1 className="text-lg font-bold">{checkProcessData.title}</h1>
+      <p>{checkProcessData.introduce}</p>
     </main>
   )
 }

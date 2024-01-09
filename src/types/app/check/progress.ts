@@ -3,10 +3,7 @@ export type CheckSlugKey = 'test1' | 'test2'
 export type CheckQuestion = {
   type: 'single' | 'select'
   title: string
-  options: {
-    label: string
-    value: number
-  }[]
+  options: Option[]
 }
 
 export type CheckProcessData = {
@@ -14,3 +11,10 @@ export type CheckProcessData = {
   introduce: string
   questions: CheckQuestion[]
 }
+
+export type Option = {
+  label: string
+  value: number
+}
+
+export type ValueFromOption = Option['value']
