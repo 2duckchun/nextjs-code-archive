@@ -1,6 +1,8 @@
-import { checkProcessData } from '@/constants/check-list'
+import { CheckProcessAction } from '@/components/actions/CheckProcessAction'
+import { slugIntro } from '@/constants/check-list'
+import { CheckProcessForm } from '@/containers/check/CheckProcessForm'
 import { assertValidSlug } from '@/lib/assertions'
-import { CheckProcessData } from '@/types/app/check'
+import { CheckProcessData, SelectedSlugIntro } from '@/types/app/check'
 import { FunctionComponent } from 'react'
 
 interface PageProps {
@@ -9,17 +11,20 @@ interface PageProps {
   }
 }
 
-const getCheckProcessData = async (slug: string): Promise<CheckProcessData> => {
-  return checkProcessData[assertValidSlug(slug)]
+const getCheckProcessData = async (
+  slug: string,
+): Promise<SelectedSlugIntro> => {
+  return slugIntro[assertValidSlug(slug)]
 }
 
 const Page: FunctionComponent<PageProps> = async ({ params: { slug } }) => {
-  const checkProcessData = await getCheckProcessData(slug)
+  const checkIntroData = await getCheckProcessData(slug)
 
   return (
-    <main className="flex min-h-screen flex-col items-center gap-5 p-24">
-      <h1 className="text-lg font-bold">{checkProcessData.title}</h1>
-      <p>{checkProcessData.introduce}</p>
+    <main className="m-auto flex min-h-screen w-[500px] flex-col items-center gap-5 p-24">
+      <h1 className="text-lg font-bold">{checkIntroData.title}</h1>
+      <p>{checkIntroData.introduce}</p>
+      <CheckProcessAction slug={slug} />
     </main>
   )
 }
