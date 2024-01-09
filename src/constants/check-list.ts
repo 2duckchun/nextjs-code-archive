@@ -1,8 +1,19 @@
 import { CheckProcessData } from '@/types/app/check'
 
+export const slugIntro = {
+  test1: {
+    title: '연습용 체크 프로세스1',
+    introduce: '당신은 남자의 소울푸드를 좋아하십니까?',
+  },
+  test2: {
+    title: '연습용 체크 프로세스2',
+    introduce: '소주십니까? 맥주십니까? 소맥이십니까?',
+  },
+}
+
 const test1: CheckProcessData = {
   title: '연습용 체크 프로세스1',
-  introduce: '연습용 체크 프로세스1 데이터입니다',
+  introduce: ['제육볶음과 돈가스가 좋으십니까?', '그렇다면 국밥은 어떠십니까?'],
   questions: [
     {
       type: 'single',
@@ -109,7 +120,7 @@ const test1: CheckProcessData = {
 
 export const test2: CheckProcessData = {
   title: '연습용 체크 프로세스2',
-  introduce: '연습용 체크 프로세스2 데이터입니다',
+  introduce: ['소주십니까? 맥주십니까? 소맥이십니까?', '하이볼은 어떠십니까?'],
   questions: [
     {
       type: 'single',
@@ -141,7 +152,7 @@ export const test2: CheckProcessData = {
     },
     {
       type: 'single',
-      title: '국밥을 좋아하시나요?',
+      title: '하이볼을 좋아하시나요?',
       options: [
         {
           label: '싫어요.',

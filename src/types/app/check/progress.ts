@@ -1,4 +1,8 @@
+import { slugIntro } from '@/constants/check-list'
+
 export type CheckSlugKey = 'test1' | 'test2'
+
+export type SelectedSlugIntro = (typeof slugIntro)[CheckSlugKey]
 
 export type CheckQuestion = {
   type: 'single' | 'select'
@@ -8,7 +12,7 @@ export type CheckQuestion = {
 
 export type CheckProcessData = {
   title: string
-  introduce: string
+  introduce: string[]
   questions: CheckQuestion[]
 }
 
