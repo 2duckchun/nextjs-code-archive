@@ -7,6 +7,7 @@ import { FunctionComponent, HTMLAttributes } from 'react'
 interface SingleFormProps extends HTMLAttributes<HTMLDivElement> {
   questionNumber: number
   question: CheckQuestion
+  isSelectedHandler: (response: Option) => boolean
   onClickHandler: (response: Option) => void
 }
 
@@ -14,6 +15,7 @@ export const SingleForm: FunctionComponent<SingleFormProps> = ({
   className,
   questionNumber,
   question,
+  isSelectedHandler,
   onClickHandler,
   ...props
 }) => {
@@ -22,12 +24,17 @@ export const SingleForm: FunctionComponent<SingleFormProps> = ({
       <CardHeader>
         {questionNumber}. {question.title}
       </CardHeader>
-      <CardContent className="flex w-full gap-5">
-        {question.options.map((option, index) => {
+      <CardContent className="flex w-full flex-col gap-5">
+        {question.options.map((option) => {
           return (
             <Button
               key={option.value}
-              className="basis-full"
+              className={cn(
+                'basis-full',
+                isSelectedHandler(option)
+                  ? 'bg-slate-700 border-slate-900 border-4'
+                  : 'bg-slate-500 border-transparent border-4',
+              )}
               onClick={() => {
                 onClickHandler(option)
               }}

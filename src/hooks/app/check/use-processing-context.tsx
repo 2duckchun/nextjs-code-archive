@@ -16,6 +16,7 @@ interface CheckProcessContext {
   shouldGoNext: boolean
   selectResponse: (response: Option) => void
   getCurrentQuestion: () => CheckQuestion
+  isSelectedResponse: (response: Option) => boolean
   next: () => void
   prev: () => void
 }
@@ -39,6 +40,10 @@ export const CheckProcessProvider = ({
     return checkData.questions[currentStep]
   }
 
+  const isSelectedResponse = (response: Option) => {
+    return checkedResponse[currentStep] === response.value
+  }
+
   const selectResponse = (response: Option) => {
     const newCheckedResponse = [...checkedResponse]
     newCheckedResponse[currentStep] = response.value
@@ -47,7 +52,7 @@ export const CheckProcessProvider = ({
   }
 
   const next = () => {
-    if (!checkedResponse[currentStep]) {
+    if (checkedResponse[currentStep] === undefined) {
       console.log('체크를 안하셨습니다.')
       return
     }
@@ -73,6 +78,9 @@ export const CheckProcessProvider = ({
     }
 
     if (currentStep > 0) {
+      const newCheckedResponse = [...checkedResponse]
+      newCheckedResponse.pop()
+      setCheckedResponse(newCheckedResponse)
       setCurrentStep((prev) => prev - 1)
       return
     }
@@ -87,6 +95,7 @@ export const CheckProcessProvider = ({
         shouldGoNext,
         selectResponse,
         getCurrentQuestion,
+        isSelectedResponse,
         next,
         prev,
       }}

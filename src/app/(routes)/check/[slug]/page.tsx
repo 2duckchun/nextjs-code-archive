@@ -1,6 +1,5 @@
-import { CheckProcessAction } from '@/components/actions/CheckProcessAction'
+import { CheckMainAction } from '@/containers/check/main/CheckMainAction'
 import { slugIntro } from '@/constants/check-list'
-import { CheckProcessForm } from '@/containers/check/CheckProcessForm'
 import { assertValidSlug } from '@/lib/assertions'
 import { CheckProcessData, SelectedSlugIntro } from '@/types/app/check'
 import { FunctionComponent } from 'react'
@@ -24,7 +23,7 @@ const Page: FunctionComponent<PageProps> = async ({ params: { slug } }) => {
     <main className="m-auto flex min-h-screen w-[500px] flex-col items-center gap-5 p-24">
       <h1 className="text-lg font-bold">{checkIntroData.title}</h1>
       <p>{checkIntroData.introduce}</p>
-      <CheckProcessAction slug={slug} />
+      <CheckMainAction slug={slug} />
     </main>
   )
 }

@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { AppPath } from '@/constants/app-path'
 
-interface CheckProcessActionProps extends HTMLAttributes<HTMLDivElement> {
+interface CheckMainActionProps extends HTMLAttributes<HTMLDivElement> {
   slug: string
 }
 
-export const CheckProcessAction: FunctionComponent<CheckProcessActionProps> = ({
+export const CheckMainAction: FunctionComponent<CheckMainActionProps> = ({
   slug,
   className,
   ...props

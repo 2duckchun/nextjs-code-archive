@@ -1,6 +1,8 @@
-import { ProgressBar } from '@/components/progress/ProgressBar'
+import { ProgressBar } from '@/containers/check/process/ProgressBar'
 import { checkProcessData } from '@/constants/check-list'
-import { CheckProcessForm } from '@/containers/check/CheckProcessForm'
+import { CheckProcessAction } from '@/containers/check/process/CheckProcessAction'
+import { CheckProcessForm } from '@/containers/check/process/CheckProcessForm'
+import { CheckProcessTitle } from '@/containers/check/process/CheckProcessTitle'
 import { CheckProcessProvider } from '@/hooks/app/check/use-processing-context'
 import { assertValidSlug } from '@/lib/assertions'
 import { FunctionComponent } from 'react'
@@ -23,16 +25,10 @@ const CheckProcessPage: FunctionComponent<CheckProcessPageProps> = async ({
   return (
     <CheckProcessProvider checkData={checkProcessData}>
       <main className="m-auto flex min-h-screen w-[500px] flex-col items-center gap-5 p-24">
-        <div className="italic">
-          <p>sound of progress</p>
-        </div>
-        <h3>
-          {checkProcessData.introduce.map((value) => {
-            return <p key={value}>{value}</p>
-          })}
-        </h3>
+        <CheckProcessTitle introduceArray={checkProcessData.introduce} />
         <ProgressBar className="w-full" />
         <CheckProcessForm />
+        <CheckProcessAction />
       </main>
     </CheckProcessProvider>
   )

@@ -1,6 +1,6 @@
 'use client'
 
-import { SingleForm } from '@/components/check/field/SingleForm'
+import { SingleForm } from '@/components/check/field/SingleField'
 import { useCheckProcessContext } from '@/hooks/app/check/use-processing-context'
 import { cn } from '@/lib/utils'
 import { CheckQuestion } from '@/types/app/check'
@@ -12,8 +12,12 @@ export const CheckProcessForm: FunctionComponent<CheckProcessFormProps> = ({
   className,
   ...props
 }) => {
-  const { currentStep, getCurrentQuestion, prev, next, selectResponse } =
-    useCheckProcessContext()
+  const {
+    currentStep,
+    getCurrentQuestion,
+    selectResponse,
+    isSelectedResponse,
+  } = useCheckProcessContext()
 
   function getQuestionForm(question: CheckQuestion) {
     switch (question.type) {
@@ -22,11 +26,12 @@ export const CheckProcessForm: FunctionComponent<CheckProcessFormProps> = ({
           <SingleForm
             questionNumber={currentStep + 1}
             question={question}
+            isSelectedHandler={isSelectedResponse}
             onClickHandler={selectResponse}
           />
         )
       case 'select':
-        return <div>single</div>
+        return <div>select</div>
       default:
         return <div>default</div>
     }

@@ -1,6 +1,7 @@
 import { slugIntro } from '@/constants/check-list'
 
-export type CheckSlugKey = 'test1' | 'test2'
+type KeyOfObject<T> = keyof T
+export type CheckSlugKey = KeyOfObject<typeof slugIntro>
 
 export type SelectedSlugIntro = (typeof slugIntro)[CheckSlugKey]
 
