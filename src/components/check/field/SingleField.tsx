@@ -4,14 +4,14 @@ import { cn } from '@/lib/utils'
 import { CheckQuestion, Option } from '@/types/app/check'
 import { FunctionComponent, HTMLAttributes } from 'react'
 
-interface SingleFormProps extends HTMLAttributes<HTMLDivElement> {
+interface SingleFieldProps extends HTMLAttributes<HTMLDivElement> {
   questionNumber: number
   question: CheckQuestion
   isSelectedHandler: (response: Option) => boolean
   onClickHandler: (response: Option) => void
 }
 
-export const SingleForm: FunctionComponent<SingleFormProps> = ({
+export const SingleField: FunctionComponent<SingleFieldProps> = ({
   className,
   questionNumber,
   question,
@@ -20,7 +20,7 @@ export const SingleForm: FunctionComponent<SingleFormProps> = ({
   ...props
 }) => {
   return (
-    <Card className={cn(className)} {...props}>
+    <Card className={cn('w-full', className)} {...props}>
       <CardHeader>
         {questionNumber}. {question.title}
       </CardHeader>

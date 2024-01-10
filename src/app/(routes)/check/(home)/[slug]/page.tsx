@@ -1,10 +1,10 @@
 import { CheckMainAction } from '@/containers/check/main/CheckMainAction'
 import { slugIntro } from '@/constants/check-list'
 import { assertValidSlug } from '@/lib/assertions'
-import { CheckProcessData, SelectedSlugIntro } from '@/types/app/check'
+import { SelectedSlugIntro } from '@/types/app/check'
 import { FunctionComponent } from 'react'
 
-interface PageProps {
+interface CheckMainSlugPageProps {
   params: {
     slug: string
   }
@@ -16,11 +16,13 @@ const getCheckProcessData = async (
   return slugIntro[assertValidSlug(slug)]
 }
 
-const Page: FunctionComponent<PageProps> = async ({ params: { slug } }) => {
+const CheckMainSlugPage: FunctionComponent<CheckMainSlugPageProps> = async ({
+  params: { slug },
+}) => {
   const checkIntroData = await getCheckProcessData(slug)
 
   return (
-    <main className="m-auto flex min-h-screen w-[500px] flex-col items-center gap-5 p-24">
+    <main className="main-content">
       <h1 className="text-lg font-bold">{checkIntroData.title}</h1>
       <p>{checkIntroData.introduce}</p>
       <CheckMainAction slug={slug} />
@@ -28,4 +30,4 @@ const Page: FunctionComponent<PageProps> = async ({ params: { slug } }) => {
   )
 }
 
-export default Page
+export default CheckMainSlugPage

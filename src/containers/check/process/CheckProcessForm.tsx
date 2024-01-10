@@ -1,7 +1,9 @@
 'use client'
 
-import { SingleForm } from '@/components/check/field/SingleField'
+import { SelectField } from '@/components/check/field/SelectField'
+import { SingleField } from '@/components/check/field/SingleField'
 import { useCheckProcessContext } from '@/hooks/app/check/use-processing-context'
+import { assertNever } from '@/lib/assertions'
 import { cn } from '@/lib/utils'
 import { CheckQuestion } from '@/types/app/check'
 import { FunctionComponent, HTMLAttributes } from 'react'
@@ -23,7 +25,7 @@ export const CheckProcessForm: FunctionComponent<CheckProcessFormProps> = ({
     switch (question.type) {
       case 'single':
         return (
-          <SingleForm
+          <SingleField
             questionNumber={currentStep + 1}
             question={question}
             isSelectedHandler={isSelectedResponse}
@@ -31,13 +33,20 @@ export const CheckProcessForm: FunctionComponent<CheckProcessFormProps> = ({
           />
         )
       case 'select':
-        return <div>select</div>
+        return (
+          <SelectField
+            questionNumber={currentStep + 1}
+            question={question}
+            onChangeHandler={selectResponse}
+          />
+        )
       default:
-        return <div>default</div>
+        return assertNever(question.type)
     }
   }
+
   return (
-    <div className={cn(className)} {...props}>
+    <div className={cn('w-full', className)} {...props}>
       <div>{getQuestionForm(getCurrentQuestion())}</div>
     </div>
   )

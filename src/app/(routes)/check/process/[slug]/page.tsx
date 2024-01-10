@@ -24,7 +24,7 @@ const CheckProcessPage: FunctionComponent<CheckProcessPageProps> = async ({
 
   return (
     <CheckProcessProvider checkData={checkProcessData}>
-      <main className="m-auto flex min-h-screen w-[500px] flex-col items-center gap-5 p-24">
+      <main className="main-content">
         <CheckProcessTitle introduceArray={checkProcessData.introduce} />
         <ProgressBar className="w-full" />
         <CheckProcessForm />

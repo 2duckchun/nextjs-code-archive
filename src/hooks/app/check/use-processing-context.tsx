@@ -7,7 +7,7 @@ import {
   ValueFromOption,
 } from '@/types/app/check'
 import { useRouter } from 'next/navigation'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 interface CheckProcessContext {
   currentStep: number
@@ -64,6 +64,7 @@ export const CheckProcessProvider = ({
     }
 
     if (currentStep === totalStep - 1) {
+      console.log(checkedResponse)
       console.log('체크가 끝났습니다.')
       return
     }
