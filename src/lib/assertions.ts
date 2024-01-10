@@ -10,3 +10,7 @@ export const assertValidSlug = (slug: string): CheckSlugKey => {
   }
   return slug
 }
+
+export const assertNever = (x: never): never => {
+  throw new Error('Unexpected object: ' + x)
+}
