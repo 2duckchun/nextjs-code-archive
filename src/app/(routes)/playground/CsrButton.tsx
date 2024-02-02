@@ -2,17 +2,26 @@
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { FunctionComponent, HTMLAttributes } from 'react'
+import { FunctionComponent, HTMLAttributes, useEffect, useState } from 'react'
 
-interface CsrButtonProps extends HTMLAttributes<HTMLButtonElement> {}
+interface CsrButtonProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const CsrButton: FunctionComponent<CsrButtonProps> = ({
   className,
   ...props
 }) => {
+  const [wait, setWait] = useState()
+
   return (
-    <Button className={cn(className)} {...props} onClick={() => alert('gdgd')}>
-      CSR 버튼
-    </Button>
+    <div className={cn(className)} {...props}>
+      <Button
+        className="w-full"
+        onClick={() => {
+          alert('hello')
+        }}
+      >
+        CSR버튼
+      </Button>
+    </div>
   )
 }
