@@ -31,8 +31,8 @@
       "",
       "const $1${TM_FILENAME_BASE/(.*)/${1:/capitalize}/g}: FunctionComponent<$1${TM_FILENAME_BASE/(.*)/${1:/capitalize}/g}Props> = ({children}) => {",
       "  return <>{children}</>",
-      "}"
-      ""
+      "}",
+      "",
       "export default $1${TM_FILENAME_BASE/(.*)/${1:/capitalize}/g}"
     ],
     "description": "Nextjs Layout File"
@@ -47,8 +47,8 @@
       "",
       "const $1${TM_FILENAME_BASE/(.*)/${1:/capitalize}/g}: FunctionComponent<$1${TM_FILENAME_BASE/(.*)/${1:/capitalize}/g}Props> = ({$3}) => {",
       "  return <main>$1${TM_FILENAME_BASE/(.*)/${1:/capitalize}/g}</main>",
-      "}"
-      ""
+      "}",
+      "",
       "export default $1${TM_FILENAME_BASE/(.*)/${1:/capitalize}/g}"
     ],
     "description": "Nextjs Page"

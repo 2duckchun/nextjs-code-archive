@@ -3,7 +3,7 @@
 import { cn } from '@/lib/utils'
 import { FunctionComponent, HTMLAttributes, useEffect, useState } from 'react'
 import { Progress } from '@/components/ui/progress'
-import { useCheckProcessContext } from '@/hooks/app/check/use-processing-context'
+import { useCheckProcessContext } from '@/hooks/app/check/useProcessProvider'
 
 interface ProgressBarProps extends HTMLAttributes<HTMLDivElement> {}
 

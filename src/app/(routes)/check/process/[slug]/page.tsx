@@ -3,7 +3,7 @@ import { checkProcessData } from '@/constants/check-list'
 import { CheckProcessAction } from '@/containers/check/process/CheckProcessAction'
 import { CheckProcessForm } from '@/containers/check/process/CheckProcessForm'
 import { CheckProcessTitle } from '@/containers/check/process/CheckProcessTitle'
-import { CheckProcessProvider } from '@/hooks/app/check/use-processing-context'
+import { CheckProcessProvider } from '@/hooks/app/check/useProcessProvider'
 import { assertValidSlug } from '@/lib/assertions'
 import { FunctionComponent } from 'react'
 
