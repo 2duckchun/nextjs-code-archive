@@ -12,7 +12,7 @@ export const Desktop: FunctionComponent<DesktopProps> = ({
       className={cn('h-header flex items-center px-5', className)}
       {...props}
     >
-      <div className="text-2xl font-semibold"> &lt; CODE ESTATE / &gt;</div>
+      <div className="text-2xl font-semibold"> &lt; CODE ARCHIVE / &gt;</div>
     </div>
   )
 }
