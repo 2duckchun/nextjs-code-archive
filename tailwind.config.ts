@@ -18,7 +18,43 @@ const config = {
       },
     },
     extend: {
+      height: {
+        header: 'var(--header-h)',
+      },
+
+      minHeight: {
+        main: 'calc(90vh - var(--header-h))',
+      },
+
+      fontFamily: {
+        sans: ['var(--font-nanum)'],
+      },
+
       colors: {
+        app: {
+          'blue-001': 'var(--app-blue-001)',
+          'blue-002': 'var(--app-blue-002)',
+
+          'gray-001': 'var(--app-gray-001)',
+          'gray-002': 'var(--app-gray-002)',
+          'gray-003': 'var(--app-gray-003)',
+          'gray-004': 'var(--app-gray-004)',
+          'gray-005': 'var(--app-gray-005)',
+          'gray-006': 'var(--app-gray-006)',
+          'gray-007': 'var(--app-gray-007)',
+          'gray-010': 'var(--app-gray-010)',
+
+          'yellow-001': 'var(--app-yellow-001)',
+          'yellow-002': 'var(--app-yellow-002)',
+          'yellow-003': 'var(--app-yellow-003)',
+
+          'pink-001': 'var(--app-pink-001)',
+          'pink-002': 'var(--app-pink-002)',
+
+          red: 'var(--app-red)',
+          placeholder: 'var(--app-placeholder)',
+        },
+
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

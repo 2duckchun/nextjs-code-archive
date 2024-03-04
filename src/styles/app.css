@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --app-yellow-001: #fdffe3;
+    --app-yellow-002: #f4f8d4;
+    --app-yellow-003: #fbefdb;
+
+    --app-blue-001: #ebf3ff;
+    --app-blue-002: #4674fe;
+
+    --app-gray-001: #ffffff;
+    --app-gray-002: #f5f5f5;
+    --app-gray-003: #e9eaee;
+    --app-gray-004: #cccccc;
+    --app-gray-005: #c4c4c4;
+    --app-gray-006: #b6b7b9;
+    --app-gray-007: #888888;
+    --app-gray-010: #000000;
+
+    --app-pink-001: #ffdede;
+    --app-pink-002: #ffe1f5;
+
+    --app-red: #ff4d43;
+
+    --app-min-w: 320px;
+    --app-max-w: 460px;
+
+    --app-placeholder: #888888;
+
+    --header-h: 50px;
+  }
+}
+
+@layer utilities {
+  /* 출처 - https://dev.to/derick1530/how-to-create-scrollable-element-in-tailwind-without-a-scrollbar-4mbd */
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
