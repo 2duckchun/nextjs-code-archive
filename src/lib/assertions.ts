@@ -14,3 +14,13 @@ export const assertValidSlug = (slug: string): CheckSlugKey => {
 export const assertNever = (x: never): never => {
   throw new Error('Unexpected object: ' + x)
 }
+
+export const assertValue = <T>(
+  value: T | null | undefined,
+  errorMessage?: string,
+): T => {
+  if (value === null || value === undefined) {
+    throw new Error(errorMessage ?? 'value is null or undefined')
+  }
+  return value
+}

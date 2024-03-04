@@ -1,0 +1,5 @@
+import { APP_ENV } from './APP_ENV'
+
+export const APP_SERVER_API_ENDPOINT = {
+  JSON_PLACEHOLDER_ALL_POSTS: () => `${APP_ENV.JSON_PLACEHOLDER_API}/posts`,
+}
