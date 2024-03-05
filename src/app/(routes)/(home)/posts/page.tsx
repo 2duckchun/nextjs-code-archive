@@ -1,23 +1,21 @@
 import { FunctionComponent } from 'react'
 import { PostsRepository } from '@/modules/posts/posts-repository'
-import { AllPostsList } from '@/containers/posts/AllPostsList'
-import { PagenationBar } from '@/components/pagenation/PagenationBar'
+import { PaginationContextProvider } from '@/context/use-pagination-context'
+import { AllPostsList } from '@/containers/posts'
 
 interface PageProps {}
 
 const getPostsData = async () => {
-  const repo = new PostsRepository()
-  const postsData = repo.getPostsList()
-  return postsData
+  const postList = await new PostsRepository().getPostsList()
+  return postList
 }
 
 const Page: FunctionComponent<PageProps> = async ({}) => {
-  const postsData = await getPostsData()
-  console.log(postsData)
+  const postList = await getPostsData()
   return (
-    <div>
-      <AllPostsList posts={postsData} />
-    </div>
+    <PaginationContextProvider lists={postList}>
+      <AllPostsList />
+    </PaginationContextProvider>
   )
 }
 

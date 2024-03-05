@@ -3,9 +3,9 @@ export const dynamic = 'force-dynamic'
 import { PostsDatasource } from './posts-datasource'
 
 export class PostsRepository implements IPostsRepository {
-  private datasource: PostsDatasource
+  private readonly datasource: PostsDatasource
   constructor(
-    private token?: string,
+    private readonly token?: string,
     datasource?: PostsDatasource,
   ) {
     this.datasource = datasource ?? new PostsDatasource(token)

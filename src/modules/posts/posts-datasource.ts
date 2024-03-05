@@ -5,7 +5,7 @@ const postsDatasourceErrorMessage = {
 }
 
 export class PostsDatasource implements IPostsDatasource {
-  private token?: string
+  private readonly token?: string
   constructor(token?: string) {
     this.token = token
   }
