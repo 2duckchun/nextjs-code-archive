@@ -9,7 +9,7 @@ interface PagenationBarProps extends HTMLAttributes<HTMLDivElement> {
   setPage: (page: number) => void
 }
 
-export const PagenationBar: FunctionComponent<PagenationBarProps> = ({
+export const PaginationBar: FunctionComponent<PagenationBarProps> = ({
   className,
   total,
   limit,

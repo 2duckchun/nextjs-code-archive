@@ -1,13 +1,13 @@
 'use client'
 
-import { FunctionComponent, HTMLAttributes } from 'react'
 import { PaginationBar } from '@/components/pagination/PaginationBar'
 import { usePaginationContext } from '@/context/use-pagination-context'
 import { cn } from '@/lib/utils'
+import { FunctionComponent, HTMLAttributes } from 'react'
 
-interface DesktopProps extends HTMLAttributes<HTMLDivElement> {}
+interface MobileProps extends HTMLAttributes<HTMLDivElement> {}
 
-export const Desktop: FunctionComponent<DesktopProps> = ({
+export const Mobile: FunctionComponent<MobileProps> = ({
   className,
   ...props
 }) => {
