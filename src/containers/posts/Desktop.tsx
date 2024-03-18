@@ -15,7 +15,8 @@ export const Desktop: FunctionComponent<DesktopProps> = ({
     usePaginationContext<Post>()
 
   return (
-    <div className={cn(className)} {...props}>
+    <div className={cn('m-auto w-full py-5', className)} {...props}>
+      <h2 className="text-center text-[20px]">MOCK JSON WORLD</h2>
       <label>
         페이지 당 표시할 게시물 수:&nbsp;
         <select
