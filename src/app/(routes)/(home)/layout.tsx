@@ -13,7 +13,11 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
   return (
     <>
       <HomeHeader />
-      <main>{children}</main>
+      <main className="bg-slate-400/50">
+        <div className="m-auto min-h-main max-w-[460px] bg-white md:max-w-[900px]">
+          {children}
+        </div>
+      </main>
       <footer>
         <div>Footer</div>
       </footer>
