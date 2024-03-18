@@ -1,13 +1,9 @@
 import type { Config } from 'tailwindcss'
+import plugin from 'tailwindcss/plugin'
 
 const config = {
   darkMode: ['class'],
-  content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-  ],
+  content: ['./src/**/*.{ts,tsx}'],
   prefix: '',
   theme: {
     container: {
@@ -18,16 +14,47 @@ const config = {
       },
     },
     extend: {
+      minHeight: {
+        main: 'calc(100vh - var(--header-h))',
+      },
+
       height: {
         header: 'var(--header-h)',
       },
 
-      minHeight: {
-        main: 'calc(90vh - var(--header-h))',
+      textShadow: {
+        bounce: `0 1px 0 #CCC,
+                 0 2px 0 #CCC,
+                 0 3px 0 #CCC,
+                 0 4px 0 #CCC,
+                 0 5px 0 transparent,
+                 0 6px 0 transparent,
+                 0 7px 0 transparent,
+                 0 8px 0 transparent,
+                 0 9px 10px rgba(0, 0, 0, .4)`,
+
+        sm: '1px 1px 2px var(--tw-shadow-color)',
+        DEFAULT: '2px 2px 4px var(--tw-shadow-color)',
+        lg: '4px 4px 8px var(--tw-shadow-color)',
+        xl: '4px 4px 16px var(--tw-shadow-color)',
+      },
+
+      animationDelay: {
+        1: '1000ms',
+        2: '2000ms',
+        3: '3000ms',
+        4: '4000ms',
+        5: '5000ms',
+        6: '6000ms',
+        7: '7000ms',
+        8: '8000ms',
+        9: '9000ms',
+        10: '10000ms',
       },
 
       fontFamily: {
         sans: ['var(--font-nanum)'],
+        dunggeunmo: ['DungGeunMo'],
       },
 
       colors: {
@@ -95,6 +122,22 @@ const config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
+        'bounce-bounce': {
+          '0%': { top: '0' },
+          '100%': {
+            top: '-10px',
+            'text-shadow': `0 1px 0 #CCC,
+            0 2px 0 #CCC,
+            0 3px 0 #CCC,
+            0 4px 0 #CCC,
+            0 5px 0 #CCC,
+            0 6px 0 #CCC,
+            0 7px 0 #CCC,
+            0 8px 0 #CCC,
+            0 9px 0 #CCC,
+            0 20px 8px rgba(0, 0, 0, .2)`,
+          },
+        },
         'accordion-down': {
           from: { height: '0' },
           to: { height: 'var(--radix-accordion-content-height)' },
@@ -107,10 +150,41 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'bounce-bounce': 'bounce-bounce 0.3s ease infinite alternate',
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value,
+          }),
+        },
+        {
+          values: theme('textShadow'),
+        },
+      )
+    }),
+
+    plugin(({ matchUtilities, theme }) => {
+      matchUtilities(
+        {
+          'animation-delay': (value) => {
+            return {
+              'animation-delay': value,
+            }
+          },
+        },
+        {
+          values: theme('transitionDelay'),
+        },
+      )
+    }),
+  ],
 } satisfies Config
 
 export default config
