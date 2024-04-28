@@ -64,7 +64,11 @@ export const ModalCloseButton = ({
 }) => {
   const { onClose } = useModalContext()
   return (
-    <button type="button" className={cn(className)} onClick={onClose}>
+    <button
+      type="button"
+      className={cn('w-full bg-blue-600', className)}
+      onClick={onClose}
+    >
       {children}
     </button>
   )
@@ -96,6 +100,20 @@ const ModalOverlay = ({
   )
 }
 
+export const ModalHeader = ({
+  children,
+  className,
+}: {
+  children: ReactNode
+  className?: string
+}) => {
+  return (
+    <h3 className={cn('w-full text-center text-xl font-semibold', className)}>
+      {children}
+    </h3>
+  )
+}
+
 const ModalContentWrapper = ({
   className,
   children,
@@ -105,8 +123,29 @@ const ModalContentWrapper = ({
 }) => {
   return (
     <div
-      className={cn('max-w-[500px] m-auto bg-white', className)}
+      className={cn(
+        'fixed left-[50%] top-[50%] m-auto  w-full max-w-lg translate-x-[-50%] translate-y-[-50%]',
+        className,
+      )}
       onClick={(e) => e.stopPropagation()}
+    >
+      {children}
+    </div>
+  )
+}
+
+export const ModalContent = ({
+  children,
+  className,
+}: {
+  children: ReactNode
+  className?: string
+}) => {
+  return (
+    <div
+      className={
+        'flex min-h-[100px] w-[500px] flex-col justify-between bg-white'
+      }
     >
       {children}
     </div>
