@@ -44,7 +44,10 @@ export default function RootLayout({
   return (
     <html lang="ko" className={nanum.variable}>
       <ReactQueryProvider>
-        <body>{children}</body>
+        <body>
+          {children}
+          <div id="modal-root"></div>
+        </body>
       </ReactQueryProvider>
     </html>
   )
