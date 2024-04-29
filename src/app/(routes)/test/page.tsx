@@ -3,7 +3,7 @@ import { FunctionComponent } from 'react'
 
 interface PageProps {}
 
-const Page: FunctionComponent<PageProps> = ({}) => {
+const Page: FunctionComponent<PageProps> = () => {
   return (
     <main>
       <TypeInferComponent
@@ -15,9 +15,18 @@ const Page: FunctionComponent<PageProps> = ({}) => {
             city: 'Anytown',
             state: 'AS',
             zip: 12345,
+            another: {
+              one: {
+                bite: {
+                  the: {
+                    dust: 'queen',
+                  },
+                },
+              },
+            },
           },
         }}
-        properties="name"
+        properties="address.another.one.bite.the.dust"
       />
     </main>
   )

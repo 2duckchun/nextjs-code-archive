@@ -161,8 +161,8 @@ export const ModalPortal = ({ children }: { children: React.ReactNode }) => {
 
   if (!mounted) return null
 
-  return createPortal(
-    children,
-    document.getElementById('modal-root') as HTMLElement,
+  return (
+    mounted &&
+    createPortal(children, document.getElementById('modal-root') as HTMLElement)
   )
 }
