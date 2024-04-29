@@ -19,9 +19,11 @@ jobs:
       - name: Generate Environment Variables File
         run: |
           echo "JSON_PLACEHOLDER=$JSON_PLACEHOLDER_API" >> .env.local
-        env: 
+        env:
           JSON_PLACEHOLDER_API: ${{ secrets.JSON_PLACEHOLDER_API }}
 
-      - name: Build
+      - name: install
         run: pnpm install
+
+      - name: build
         run: pnpm build
