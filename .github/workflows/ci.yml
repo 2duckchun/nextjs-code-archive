@@ -22,6 +22,9 @@ jobs:
         env:
           JSON_PLACEHOLDER_API: ${{ secrets.JSON_PLACEHOLDER_API }}
 
+      - name: install pnpm
+        run: npm install -g pnpm
+
       - name: install
         run: pnpm install
 
