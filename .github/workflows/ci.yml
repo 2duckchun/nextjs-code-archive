@@ -1,0 +1,27 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+jobs:
+  environment_variable:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@4
+      - name: Setup Node.js
+      - uses: actions/setup-node@v4
+      - with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Generate Environment Variables File
+        run: |
+          echo "JSON_PLACEHOLDER=$JSON_PLACEHOLDER_API" >> .env.local
+        env: 
+          JSON_PLACEHOLDER_API: ${{ secrets.JSON_PLACEHOLDER_API }}
+
+      - name: Build
+        run: pnpm install
+        run: pnpm build
