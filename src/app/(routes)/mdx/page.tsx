@@ -1,43 +1,23 @@
 import { FunctionComponent } from 'react'
-import { MDXRemote, compileMDX } from 'next-mdx-remote/rsc'
+import ReactMarkdown from 'react-markdown'
 import fs from 'fs'
 import path from 'path'
+import rehypeRaw from 'rehype-raw'
 
 interface PageProps {}
 
 const Page: FunctionComponent<PageProps> = async ({}) => {
-  const filePath = path.join(process.cwd(), 'post', 'post01.md')
+  const filePath = path.join(
+    process.cwd(),
+    'post',
+    '240617-개인정보처리방침.md',
+  )
   const markdownsource = fs.readFileSync(filePath, 'utf-8')
-  const { content, frontmatter } = await compileMDX({
-    source: markdownsource,
-    components: {
-      h1: ({ children }) => <div className="text-red-400">{children}</div>,
-      Hello: ({ children }) => <div className="text-blue-400">{children}</div>,
-    },
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [],
-        rehypePlugins: [],
-      },
-    },
-  })
-  // console.log(markdownsource)
-  console.log(frontmatter)
+
   return (
-    <main>
-      {content}
-      {/* <MDXRemote
-        source={markdownsource}
-        options={{
-          parseFrontmatter: true,
-          mdxOptions: {
-            remarkPlugins: [],
-            rehypePlugins: [],
-          },
-        }}
-      /> */}
-    </main>
+    <ReactMarkdown className={'prose'} rehypePlugins={[rehypeRaw]}>
+      {markdownsource}
+    </ReactMarkdown>
   )
 }
 
