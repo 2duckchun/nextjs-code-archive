@@ -17,9 +17,13 @@ const getCheckProcessData = async (slug: string) => {
   return checkProcessData[assertValidSlug(slug)]
 }
 
-const CheckProcessPage: FunctionComponent<CheckProcessPageProps> = async ({
-  params: { slug },
-}) => {
+const CheckProcessPage: FunctionComponent<CheckProcessPageProps> = async props => {
+  const params = await props.params;
+
+  const {
+    slug
+  } = params;
+
   const checkProcessData = await getCheckProcessData(slug)
 
   return (

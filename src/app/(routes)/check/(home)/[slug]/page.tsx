@@ -16,9 +16,13 @@ const getCheckProcessData = async (
   return slugIntro[assertValidSlug(slug)]
 }
 
-const CheckMainSlugPage: FunctionComponent<CheckMainSlugPageProps> = async ({
-  params: { slug },
-}) => {
+const CheckMainSlugPage: FunctionComponent<CheckMainSlugPageProps> = async props => {
+  const params = await props.params;
+
+  const {
+    slug
+  } = params;
+
   const checkIntroData = await getCheckProcessData(slug)
 
   return (
