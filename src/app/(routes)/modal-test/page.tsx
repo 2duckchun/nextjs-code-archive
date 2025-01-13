@@ -7,12 +7,23 @@ interface ModalPageProps {}
 
 const ModalPage: FunctionComponent<ModalPageProps> = ({}) => {
   const handleOpenModal1 = () => {
-    showModal('커스텀 버튼 1', <p>1번 버튼 클릭 레스고</p>)
+    showModal({
+      title: '커스텀 버튼 1',
+      content: <p>커스텀 버튼 1 테스트</p>,
+      label: '버튼1 라벨',
+      onClose: () => console.log('눌1리셨다.'),
+    })
   }
 
   const handleOpenModal2 = () => {
-    showModal('커스텀 버튼 2', <p>2번 버튼 클릭 레스고</p>)
+    showModal({
+      title: '커스텀 버튼 2',
+      content: <p>커스텀 버튼 2 테스트</p>,
+      label: '버튼2 라벨',
+    })
   }
+
+  console.log('메인 렌더링')
 
   return (
     <main>

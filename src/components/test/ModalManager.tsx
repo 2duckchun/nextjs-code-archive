@@ -3,15 +3,20 @@
 import { ReactNode, useState } from 'react'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '../ui/dialog'
+import { Button } from '../ui/button'
 
 type ModalState = {
   title: string
   content: ReactNode
+  label?: string
+  isOpen?: boolean
+  onClose?: () => void
 }
 
 type ShowHandlder = ((state: ModalState) => void) | null
@@ -21,46 +26,48 @@ const GlobalModalManager = (() => {
   let showModalHandler: ShowHandlder = null
   let hideModalHandler: HideHandler = null
 
-  const showModal = (title: string, content: ReactNode) => {
-    if (showModalHandler) showModalHandler({ title, content })
+  const showModal = ({ title, content, label, onClose }: ModalState) => {
+    if (showModalHandler) showModalHandler({ title, content, label, onClose })
   }
   const hideModal = () => {
     if (hideModalHandler) hideModalHandler()
   }
 
   const ModalManagerComponent = () => {
-    const [modalState, setModalState] = useState<
-      {
-        isOpen: boolean
-      } & ModalState
-    >({
+    const [modalState, setModalState] = useState<ModalState>({
       isOpen: false,
       title: '',
       content: '',
+      label: '',
     })
 
-    showModalHandler = ({
-      title,
-      content,
-    }: {
-      title: string
-      content: ReactNode
-    }) => {
-      setModalState({ isOpen: true, title, content })
+    showModalHandler = ({ title, content, label, onClose }: ModalState) => {
+      setModalState({ isOpen: true, title, content, label, onClose })
     }
 
     hideModalHandler = () => {
       setModalState((prev) => ({ ...prev, isOpen: false }))
     }
 
+    const { title, content, isOpen, label, onClose } = modalState
+
     return (
-      <Dialog open={modalState.isOpen} onOpenChange={hideModalHandler}>
+      <Dialog
+        open={isOpen}
+        onOpenChange={(open) => {
+          if (!open && onClose) onClose()
+          hideModalHandler?.()
+        }}
+      >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{modalState.title}</DialogTitle>
+            <DialogTitle>{title}</DialogTitle>
             <DialogDescription>설명쓰</DialogDescription>
           </DialogHeader>
-          <div>{modalState.content}</div>
+          <div>{content}</div>
+          <DialogClose asChild>
+            <Button>{label}</Button>
+          </DialogClose>
         </DialogContent>
       </Dialog>
     )
