@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import '@/styles/globals.css'
 import ReactQueryProvider from '@/context/app/ReactQueryProvider'
+import { GlobalModal } from '@/components/test/ModalManager'
 
 const nanum = localFont({
   variable: '--font-nanum',
@@ -46,6 +47,7 @@ export default function RootLayout({
       <ReactQueryProvider>
         <body>
           {children}
+          <GlobalModal />
           <div id="modal-root"></div>
         </body>
       </ReactQueryProvider>

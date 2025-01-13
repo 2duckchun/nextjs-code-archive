@@ -1,14 +1,17 @@
-import { useState } from 'react'
+'use client'
+
+import { ReactNode, useState } from 'react'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogTitle,
 } from '../ui/dialog'
 
 type ModalState = {
   title: string
-  content: string
+  content: ReactNode
 }
 
 type ShowHandlder = ((state: ModalState) => void) | null
@@ -18,7 +21,7 @@ const GlobalModalManager = (() => {
   let showModalHandler: ShowHandlder = null
   let hideModalHandler: HideHandler = null
 
-  const showModal = (title: string, content: string) => {
+  const showModal = (title: string, content: ReactNode) => {
     if (showModalHandler) showModalHandler({ title, content })
   }
   const hideModal = () => {
@@ -26,7 +29,11 @@ const GlobalModalManager = (() => {
   }
 
   const ModalManagerComponent = () => {
-    const [modalState, setModalState] = useState({
+    const [modalState, setModalState] = useState<
+      {
+        isOpen: boolean
+      } & ModalState
+    >({
       isOpen: false,
       title: '',
       content: '',
@@ -37,7 +44,7 @@ const GlobalModalManager = (() => {
       content,
     }: {
       title: string
-      content: string
+      content: ReactNode
     }) => {
       setModalState({ isOpen: true, title, content })
     }
@@ -49,8 +56,10 @@ const GlobalModalManager = (() => {
     return (
       <Dialog open={modalState.isOpen} onOpenChange={hideModalHandler}>
         <DialogContent>
-          <DialogHeader>{modalState.title}</DialogHeader>
-          <DialogDescription>설명쓰</DialogDescription>
+          <DialogHeader>
+            <DialogTitle>{modalState.title}</DialogTitle>
+            <DialogDescription>설명쓰</DialogDescription>
+          </DialogHeader>
           <div>{modalState.content}</div>
         </DialogContent>
       </Dialog>
