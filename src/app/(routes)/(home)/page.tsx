@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/utils'
 import { FunctionComponent } from 'react'
 
 interface PageProps {}

@@ -1,6 +1,6 @@
 'use client' // Error components must be Client Components
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/ui/button'
 import { useEffect, useState } from 'react'
 
 export default function Error({
@@ -23,14 +23,7 @@ export default function Error({
       <h2>Something went wrong!</h2>
       <p>에러 바운더리에 걸려뿌쓰요.</p>
       <p className="font-bold">에러 메세지 : {errorMessage}</p>
-      <Button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Try again
-      </Button>
+      <Button onClick={() => reset()}>Try again</Button>
     </div>
   )
 }
