@@ -16,7 +16,10 @@ export default async function PostsPage() {
     return (
       <div>
         {data.map((post) => (
-          <div key={post.id}>{post.title}</div>
+          <div className="border-b border-gray-200 p-4" key={post.id}>
+            <h2 className="text-lg font-bold">{post.title}</h2>
+            <p className="text-sm text-gray-500">{post.body}</p>
+          </div>
         ))}
       </div>
     )
