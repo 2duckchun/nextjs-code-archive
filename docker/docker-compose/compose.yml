@@ -1,0 +1,6 @@
+services:
+  my-web-server: # 서비스 이름
+    container_name: web-server # --name 옵션과 동일
+    image: nginx # 사용할 이미지
+    ports:
+      - 80:80 # 호스트 포트:컨테이너 포트
