@@ -1,9 +1,14 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import React from 'react'
-import ReactQuill from 'react-quill-new'
 import 'react-quill-new/dist/quill.snow.css'
 import { cn } from '@/shared/lib/utils'
+
+const ReactQuill = dynamic(() => import('react-quill-new'), {
+  ssr: false,
+  loading: () => <p>Loading editor...</p>,
+})
 
 interface QuillEditorProps {
   className?: string

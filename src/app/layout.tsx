@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import '@/styles/globals.css'
 import { GlobalModal } from '@/shared/ui/global-modal'
+import { Suspense } from 'react'
 
 const nanum = localFont({
   variable: '--font-nanum',
@@ -44,9 +45,11 @@ export default function RootLayout({
   return (
     <html lang="ko" className={nanum.variable}>
       <body>
-        {children}
-        <GlobalModal />
-        <div id="modal-root"></div>
+        <Suspense fallback={<div>Loading...</div>}>
+          {children}
+          <GlobalModal />
+          <div id="modal-root"></div>
+        </Suspense>
       </body>
     </html>
   )

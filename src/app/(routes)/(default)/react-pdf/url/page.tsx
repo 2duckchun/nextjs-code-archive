@@ -1,22 +1,31 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
 
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 
-// 워커 경로 (방법 ①: public 폴더에 복사해 두었다고 가정)
-pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs'
+console.log(pdfjs.GlobalWorkerOptions.workerSrc)
+console.log(import.meta.url)
 
 export default function ReactPdfPage() {
   const [numPages, setNumPages] = useState(0)
   const [pageNumber, setPageNumber] = useState(1)
 
+  useEffect(() => {
+    console.log(import.meta.url)
+    pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+      'pdfjs-dist/build/pdf.worker.min.mjs',
+      import.meta.url,
+    ).toString()
+  }, [])
+
   const file = useMemo(
     () => ({ url: 'https://pdfobject.com/pdf/sample.pdf' }),
     [],
   )
+
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages)
     setPageNumber(1)
@@ -24,7 +33,7 @@ export default function ReactPdfPage() {
 
   return (
     <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
-      <Page height={1000} pageNumber={pageNumber} />
+      <Page width={200} height={300} pageNumber={pageNumber} />
     </Document>
   )
 }
