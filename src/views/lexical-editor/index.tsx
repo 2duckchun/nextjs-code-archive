@@ -12,6 +12,9 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
 import ImageDropPastePlugin from './plugin/image-drop-paste-plugin'
+import IframeInsertPlugin from './plugin/iframe-insert-plugin'
+import IframeCommandPlugin from './plugin/iframe-command-plugin'
+import { IframeNode } from './node/iframe-node'
 
 const theme = {}
 
@@ -28,7 +31,7 @@ export default function LexicalEditor() {
     namespace: 'MyEditor',
     theme,
     onError,
-    nodes: [ImageNode], // ← 필수! 커스텀 노드 목록
+    nodes: [ImageNode, IframeNode], // ← 필수! 커스텀 노드 목록
   }
 
   return (
@@ -37,7 +40,9 @@ export default function LexicalEditor() {
         <div className="mb-2 flex gap-2">
           <ImageUploadPlugin onImageUpload={onImageUpload} />
           <ImageDropPastePlugin onImageUpload={onImageUpload} />
+          <IframeInsertPlugin />
         </div>
+        <IframeCommandPlugin />
         <RichTextPlugin
           contentEditable={
             <ContentEditable
