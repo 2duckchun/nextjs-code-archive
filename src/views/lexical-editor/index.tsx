@@ -15,6 +15,9 @@ import ImageDropPastePlugin from './plugin/image-drop-paste-plugin'
 import IframeInsertPlugin from './plugin/iframe-insert-plugin'
 import IframeCommandPlugin from './plugin/iframe-command-plugin'
 import { IframeNode } from './node/iframe-node'
+import { FontSizePlugin } from './plugin/font-size-plugin'
+import { AlignmentPlugin } from './plugin/alignment-plugin'
+import { ColorPickerPlugin } from './plugin/font-color-plugin'
 
 const theme = {}
 
@@ -35,27 +38,34 @@ export default function LexicalEditor() {
   }
 
   return (
-    <div className="flex h-[90%] w-full flex-col">
-      <LexicalComposer initialConfig={initialConfig}>
-        <div className="mb-2 flex gap-2">
-          <ImageUploadPlugin onImageUpload={onImageUpload} />
-          <ImageDropPastePlugin onImageUpload={onImageUpload} />
-          <IframeInsertPlugin />
-        </div>
-        <IframeCommandPlugin />
+    <LexicalComposer initialConfig={initialConfig}>
+      <div className="mb-2 flex gap-2">
+        <ImageUploadPlugin onImageUpload={onImageUpload} />
+        <ImageDropPastePlugin onImageUpload={onImageUpload} />
+        <IframeInsertPlugin />
+        <FontSizePlugin />
+        <ColorPickerPlugin />
+        <AlignmentPlugin />
+      </div>
+      <IframeCommandPlugin />
+      <div className="relative max-h-[600px] min-h-[240px] overflow-y-auto p-4">
         <RichTextPlugin
           contentEditable={
             <ContentEditable
-              className="h-full w-full"
+              className="outline-none"
               aria-placeholder={'Enter some text...'}
-              placeholder={<div>Enter some text...</div>}
+              placeholder={
+                <div className="pointer-events-none absolute left-4 top-4 select-none text-gray-500">
+                  Enter some text...
+                </div>
+              }
             />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
-        <HistoryPlugin />
-        <AutoFocusPlugin />
-      </LexicalComposer>
-    </div>
+      </div>
+      <HistoryPlugin />
+      <AutoFocusPlugin />
+    </LexicalComposer>
   )
 }

@@ -16,7 +16,6 @@ export default function ImageDropPastePlugin({ onImageUpload }: Props) {
   const [editor] = useLexicalComposerContext()
 
   /** 비동기 업로드 + 노드 삽입 */
-
   const uploadAndInsert = useCallback(
     async (file: File) => {
       if (!onImageUpload) return

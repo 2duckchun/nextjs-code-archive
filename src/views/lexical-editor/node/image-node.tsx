@@ -4,6 +4,7 @@ import {
   SerializedLexicalNode, // 직렬화 타입 베이스
   Spread,
 } from 'lexical'
+import ResizableImage from '../plugin/image-resizable'
 
 /* 1️⃣  직렬화 타입 정의 ------------------------------------------------ */
 export type SerializedImageNode = Spread<
@@ -45,13 +46,22 @@ export class ImageNode extends DecoratorNode<React.ReactNode> {
     return new ImageNode(node.__src, node.__width, node.__height, node.__key)
   }
 
+  setSize(width: number | 'auto', height: number | 'auto') {
+    const writable = this.getWritable()
+    writable.__width = width
+    writable.__height = height
+  }
+
   /* --- DOM 생성 / 업데이트는 기존과 동일 --- */
   createDOM() {
-    const img = document.createElement('img')
-    img.src = this.__src
-    if (this.__width !== 'auto') img.style.width = `${this.__width}px`
-    if (this.__height !== 'auto') img.style.height = `${this.__height}px`
-    return img
+    const container = document.createElement('span')
+    container.className = 'inline-block'
+    return container
+    // const img = document.createElement('img')
+    // img.src = this.__src
+    // if (this.__width !== 'auto') img.style.width = `${this.__width}px`
+    // if (this.__height !== 'auto') img.style.height = `${this.__height}px`
+    // return img
   }
 
   updateDOM(prev: ImageNode, dom: HTMLElement) {
@@ -79,8 +89,12 @@ export class ImageNode extends DecoratorNode<React.ReactNode> {
 
   decorate() {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src={this.__src} alt="uploaded" className="max-w-full rounded-md" />
+      <ResizableImage
+        src={this.__src}
+        width={this.__width}
+        height={this.__height}
+        nodeKey={this.getKey()}
+      />
     )
   }
 }
