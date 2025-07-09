@@ -18,8 +18,11 @@ import { AlignmentPlugin } from './plugin/alignment-plugin'
 import { ColorPickerPlugin } from './plugin/font-color-plugin'
 import { TablePlugin } from '@lexical/react/LexicalTablePlugin'
 import TableInsertPlugin from './plugin/table-insert-plugin'
+import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode'
+import { HorizontalRulePlugin } from '@lexical/react/LexicalHorizontalRulePlugin'
 import { TableCellColorPlugin } from './plugin/table-cell-color-plugin'
 import dynamic from 'next/dynamic'
+import { DividerInsertButton } from './plugin/divider-insert-plugin'
 
 const TableCellResizerPlugin = dynamic(
   () => import('./plugin/table-cell-resizer'),
@@ -47,7 +50,14 @@ export default function LexicalEditor() {
     namespace: 'MyEditor',
     theme,
     onError,
-    nodes: [ImageNode, IframeNode, TableNode, TableRowNode, TableCellNode], // ← 필수! 커스텀 노드 목록
+    nodes: [
+      ImageNode,
+      IframeNode,
+      TableNode,
+      TableRowNode,
+      TableCellNode,
+      HorizontalRuleNode,
+    ], // ← 필수! 커스텀 노드 목록
   }
 
   return (
@@ -63,6 +73,8 @@ export default function LexicalEditor() {
         <TableCellColorPlugin />
         <TableInsertPlugin />
         <TableCellResizerPlugin />
+        <HorizontalRulePlugin />
+        <DividerInsertButton />
       </div>
       <IframeCommandPlugin />
       <div className="relative max-h-[600px] min-h-[240px] overflow-y-auto p-4">

@@ -1,7 +1,7 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { useLexicalNodeSelection } from '@lexical/react/useLexicalNodeSelection'
 import { $getNodeByKey } from 'lexical'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { ImageNode } from '../node/image-node'
 
 export default function ResizableImage({
@@ -15,6 +15,7 @@ export default function ResizableImage({
   height: number | 'auto'
   nodeKey: string
 }) {
+  const [size, setSize] = useState({ w: width, h: height }) // 상태 추가
   const [editor] = useLexicalComposerContext()
   const [selected, setSelected, clearSelection] =
     useLexicalNodeSelection(nodeKey)
@@ -32,6 +33,12 @@ export default function ResizableImage({
         setSelected(true) // 단일 선택
       }
     })
+    if (!selected && imgRef.current) {
+      setSize({
+        w: imgRef.current.offsetWidth,
+        h: imgRef.current.offsetHeight,
+      })
+    }
   }
 
   const startResize = (
@@ -46,6 +53,7 @@ export default function ResizableImage({
     const onMove = (eMove: MouseEvent) => {
       const nextW = Math.max(40, startW + (eMove.clientX - startX))
       const nextH = Math.max(40, startH + (eMove.clientY - startY))
+      setSize({ w: nextW, h: nextH })
       /* ②-A Lexical 상태 업데이트 */
       editor.update(
         () => {
@@ -86,6 +94,9 @@ export default function ResizableImage({
             onMouseDown={startResize}
             className="absolute bottom-0 right-0 h-3 w-3 cursor-se-resize rounded-sm bg-blue-500"
           />
+          <span className="absolute bottom-2 right-2 rounded bg-black/70 px-1 font-mono text-[10px] text-white">
+            {Math.round(size.w as number)}px × {Math.round(size.h as number)}px
+          </span>
           {/* 필요하다면 다른 모서리·변형 핸들도 추가 */}
         </>
       )}
