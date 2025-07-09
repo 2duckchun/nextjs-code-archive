@@ -47,10 +47,16 @@ export default function ResizableImage({
       const nextW = Math.max(40, startW + (eMove.clientX - startX))
       const nextH = Math.max(40, startH + (eMove.clientY - startY))
       /* ②-A Lexical 상태 업데이트 */
-      editor.update(() => {
-        const node = $getNodeByKey(nodeKey) as ImageNode
-        node?.setSize(nextW, nextH)
-      })
+      editor.update(
+        () => {
+          const node = $getNodeByKey(nodeKey) as ImageNode
+          node?.setSize(nextW, nextH)
+        },
+        {
+          // 이벤트 과도하게 쌓이는 것 방지
+          discrete: true,
+        },
+      )
     }
     const onUp = () => {
       window.removeEventListener('mousemove', onMove)
