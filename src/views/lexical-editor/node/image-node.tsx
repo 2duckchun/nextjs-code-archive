@@ -64,6 +64,36 @@ export class ImageNode extends DecoratorNode<React.ReactNode> {
     // return img
   }
 
+  static importDOM() {
+    return {
+      img: (dom: HTMLElement) => {
+        if (!(dom instanceof HTMLImageElement)) return null
+
+        const w = dom.style.width ? parseInt(dom.style.width) : 'auto'
+        const h = dom.style.height ? parseInt(dom.style.height) : 'auto'
+
+        return {
+          // 🔑 convert 함수 → {node: …}
+          conversion() {
+            return { node: new ImageNode(dom.src, w, h) }
+          },
+          priority: 1 as const,
+        }
+      },
+    } as const
+  }
+
+  exportDOM() {
+    /* Lexical 요구 형식: {element, type} or HTMLElement */
+    const img = document.createElement('img')
+    img.setAttribute('src', this.__src)
+    if (this.__width !== 'auto') img.style.width = `${this.__width}px`
+    if (this.__height !== 'auto') img.style.height = `${this.__height}px`
+    img.setAttribute('data-lexical-image', 'true') // 임의 식별자(선택)
+
+    return { element: img } // ← HTML export 시 이 img만 직렬화
+  }
+
   updateDOM(prev: ImageNode, dom: HTMLElement) {
     const el = dom as HTMLImageElement
     if (prev.__src !== this.__src) el.src = this.__src

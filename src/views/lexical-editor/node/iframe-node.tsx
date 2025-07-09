@@ -37,6 +37,32 @@ export class IframeNode extends DecoratorNode<React.ReactNode> {
     el.className = 'rounded-md'
     return el
   }
+
+  /** HTML <iframe> → IframeNode 변환 */
+  static importDOM() {
+    return {
+      iframe: (dom: HTMLElement) => {
+        if (!(dom instanceof HTMLIFrameElement)) return null
+
+        const src = dom.src || dom.getAttribute('src') || ''
+        const width =
+          dom.getAttribute('width') ??
+          (dom.style.width ? dom.style.width : '100%')
+        const height =
+          dom.getAttribute('height') ??
+          (dom.style.height ? dom.style.height : '400px')
+
+        return {
+          conversion() {
+            // 🔑 반드시 { node: … } 객체를 반환해야 함
+            return { node: new IframeNode(src, width, height) }
+          },
+          priority: 1 as const, // 0 – 4 중 하나로 지정
+        }
+      },
+    } as const
+  }
+
   updateDOM() {
     return false
   }

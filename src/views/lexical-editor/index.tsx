@@ -20,9 +20,15 @@ import { TablePlugin } from '@lexical/react/LexicalTablePlugin'
 import TableInsertPlugin from './plugin/table-insert-plugin'
 import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode'
 import { HorizontalRulePlugin } from '@lexical/react/LexicalHorizontalRulePlugin'
-import { TableCellColorPlugin } from './plugin/table-cell-color-plugin'
 import dynamic from 'next/dynamic'
 import { DividerInsertButton } from './plugin/divider-insert-plugin'
+import HtmlPreviewPlugin from './plugin/html-preview-plugin'
+import { $getRoot, EditorState } from 'lexical'
+import type { LexicalEditor } from 'lexical'
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html'
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
+import { useEffect } from 'react'
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 
 const TableCellResizerPlugin = dynamic(
   () => import('./plugin/table-cell-resizer'),
@@ -45,10 +51,28 @@ const onImageUpload = async (file: File) => {
   return 'https://cdn.pixabay.com/photo/2025/06/27/13/47/black-headed-grosbeak-9684040_1280.jpg'
 }
 
-export default function LexicalEditor() {
+export type SerializedState = ReturnType<EditorState['toJSON']>
+
+interface Props {
+  initialHTML?: string | null
+  onHtmlChange?: (html: string) => void // 🔹 단일 콜백
+}
+
+export default function LexicalNewEditor({ initialHTML, onHtmlChange }: Props) {
   const initialConfig = {
     namespace: 'MyEditor',
     theme,
+    editorState: initialHTML
+      ? (editor: LexicalEditor) => {
+          const dom = new DOMParser().parseFromString(initialHTML, 'text/html')
+          editor.update(() => {
+            const nodes = $generateNodesFromDOM(editor, dom)
+            const root = $getRoot()
+            root.clear()
+            root.append(...nodes)
+          })
+        }
+      : undefined,
     onError,
     nodes: [
       ImageNode,
@@ -58,6 +82,24 @@ export default function LexicalEditor() {
       TableCellNode,
       HorizontalRuleNode,
     ], // ← 필수! 커스텀 노드 목록
+  }
+
+  /* ===== 3. 편집 이벤트마다 HTML 직렬화 ===== */
+  const handleChange = (state: EditorState, editor: LexicalEditor) => {
+    if (!onHtmlChange) return
+    const html = state.read(() => $generateHtmlFromNodes(editor, null))
+    onHtmlChange(html)
+  }
+
+  function InitialHtmlPlugin() {
+    const [editor] = useLexicalComposerContext()
+    useEffect(() => {
+      if (!onHtmlChange) return
+      editor.getEditorState().read(() => {
+        onHtmlChange($generateHtmlFromNodes(editor, null))
+      })
+    }, [editor])
+    return null
   }
 
   return (
@@ -70,10 +112,10 @@ export default function LexicalEditor() {
         <ColorPickerPlugin />
         <AlignmentPlugin />
         <TablePlugin hasCellBackgroundColor />
-        <TableCellColorPlugin />
         <TableInsertPlugin />
         <TableCellResizerPlugin />
         <HorizontalRulePlugin />
+        <HtmlPreviewPlugin />
         <DividerInsertButton />
       </div>
       <IframeCommandPlugin />
@@ -81,7 +123,7 @@ export default function LexicalEditor() {
         <RichTextPlugin
           contentEditable={
             <ContentEditable
-              className="outline-none"
+              className="min-h-[240px] outline-none"
               aria-placeholder={'Enter some text...'}
               placeholder={
                 <div className="pointer-events-none absolute left-4 top-4 select-none text-gray-500">
@@ -94,6 +136,8 @@ export default function LexicalEditor() {
         />
       </div>
       <HistoryPlugin />
+      <OnChangePlugin onChange={handleChange} />
+      <InitialHtmlPlugin />
       <AutoFocusPlugin />
     </LexicalComposer>
   )
