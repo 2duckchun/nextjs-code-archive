@@ -1,0 +1,28 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ *
+ */
+
+.TableCellResizer__resizer {
+  position: absolute;
+  touch-action: none;
+}
+
+.TableCellResizer__ui {
+  /* 드래그 핸들 (events = all!) */
+  position: absolute;
+  pointer-events: all; /* ← 반드시 all 이어야 셀 클릭을 통과 */
+  user-select: none;
+  z-index: 3;
+}
+
+@media (pointer: coarse) {
+  .TableCellResizer__resizer {
+    background-color: #adf;
+    mix-blend-mode: color;
+  }
+}

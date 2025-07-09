@@ -1,8 +1,6 @@
 'use client'
 
-import { $getRoot, $getSelection } from 'lexical'
-import { useEffect } from 'react'
-
+import { TableNode, TableRowNode, TableCellNode } from '@lexical/table'
 import ImageUploadPlugin from './plugin/image-upload-plugin'
 import { ImageNode } from './node/image-node'
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
@@ -18,8 +16,23 @@ import { IframeNode } from './node/iframe-node'
 import { FontSizePlugin } from './plugin/font-size-plugin'
 import { AlignmentPlugin } from './plugin/alignment-plugin'
 import { ColorPickerPlugin } from './plugin/font-color-plugin'
+import { TablePlugin } from '@lexical/react/LexicalTablePlugin'
+import TableInsertPlugin from './plugin/table-insert-plugin'
+import { TableCellColorPlugin } from './plugin/table-cell-color-plugin'
+import dynamic from 'next/dynamic'
 
-const theme = {}
+const TableCellResizerPlugin = dynamic(
+  () => import('./plugin/table-cell-resizer'),
+  { ssr: false },
+)
+
+const theme = {
+  table: 'table', // <table …>
+  tableCell: 'tableCell', // <td>, <th>
+  tableCellHeader: 'tableCellHeader',
+  tableAddColumnsButton: '', // 필요 없으면 빈 문자열
+  tableAddRowsButton: '',
+}
 
 function onError(error: Error) {
   console.error(error)
@@ -34,7 +47,7 @@ export default function LexicalEditor() {
     namespace: 'MyEditor',
     theme,
     onError,
-    nodes: [ImageNode, IframeNode], // ← 필수! 커스텀 노드 목록
+    nodes: [ImageNode, IframeNode, TableNode, TableRowNode, TableCellNode], // ← 필수! 커스텀 노드 목록
   }
 
   return (
@@ -46,6 +59,10 @@ export default function LexicalEditor() {
         <FontSizePlugin />
         <ColorPickerPlugin />
         <AlignmentPlugin />
+        <TablePlugin hasCellBackgroundColor />
+        <TableCellColorPlugin />
+        <TableInsertPlugin />
+        <TableCellResizerPlugin />
       </div>
       <IframeCommandPlugin />
       <div className="relative max-h-[600px] min-h-[240px] overflow-y-auto p-4">

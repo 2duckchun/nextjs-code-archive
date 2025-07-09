@@ -81,4 +81,22 @@
   .main-content {
     @apply m-auto flex min-h-screen w-[500px] flex-col items-center gap-5 p-24;
   }
+
+  .table {
+    margin-top: 4px;
+  }
+
+  .tableCell {
+    width: 70px;
+    border: 1px solid #bbb;
+    padding-left: 6px;
+  }
+
+  .tableCell p {
+    margin-bottom: 4px;
+  }
+
+  .tableCellHeader {
+    background: #f2f3f5;
+  }
 }
