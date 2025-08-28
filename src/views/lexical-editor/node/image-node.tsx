@@ -1,4 +1,3 @@
-// nodes/ImageNode.ts
 import {
   DecoratorNode,
   SerializedLexicalNode, // 직렬화 타입 베이스
@@ -6,7 +5,6 @@ import {
 } from 'lexical'
 import ResizableImage from '../plugin/image-resizable'
 
-/* 1️⃣  직렬화 타입 정의 ------------------------------------------------ */
 export type SerializedImageNode = Spread<
   {
     type: 'image'
@@ -18,7 +16,6 @@ export type SerializedImageNode = Spread<
   SerializedLexicalNode
 >
 
-/* 2️⃣  노드 클래스 ---------------------------------------------------- */
 export class ImageNode extends DecoratorNode<React.ReactNode> {
   __src: string
   __width: number | 'auto'
@@ -57,11 +54,6 @@ export class ImageNode extends DecoratorNode<React.ReactNode> {
     const container = document.createElement('span')
     container.className = 'inline-block'
     return container
-    // const img = document.createElement('img')
-    // img.src = this.__src
-    // if (this.__width !== 'auto') img.style.width = `${this.__width}px`
-    // if (this.__height !== 'auto') img.style.height = `${this.__height}px`
-    // return img
   }
 
   static importDOM() {

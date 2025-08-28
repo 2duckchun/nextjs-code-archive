@@ -12,9 +12,7 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
   return (
     <>
       <main className="bg-slate-400/50">
-        <div className="m-auto min-h-main max-w-[460px] bg-white md:max-w-[900px]">
-          {children}
-        </div>
+        <div className="m-auto min-h-main w-full bg-white ">{children}</div>
       </main>
     </>
   )
